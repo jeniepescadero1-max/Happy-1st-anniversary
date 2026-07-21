@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 1st Anniversary, Sergie 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d0408;font-family:'Cormorant Garamond',serif;color:#f5e6d3;overflow:hidden;height:100vh;width:100vw;user-select:none}
+
+/* ─── SETUP ──────────────────────────────────────────────── */
+#setup{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,#3a0a1a,#0d0408)}
+#setup.gone{display:none}
+.sbox{background:rgba(10,3,6,.9);border:1px solid rgba(201,133,106,.28);border-radius:14px;padding:36px 42px;max-width:700px;width:92%;text-align:center}
+.s-title{font-family:'Cinzel',serif;font-size:21px;font-weight:600;color:#f7dcc8;letter-spacing:.06em;margin-bottom:6px}
+.s-sub{font-size:15px;font-style:italic;color:#c9856a;margin-bottom:6px}
+.s-song{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;color:rgba(201,133,106,.5);text-transform:uppercase;margin-bottom:24px}
+.dzone{border:1px dashed rgba(201,133,106,.38);border-radius:8px;padding:28px 18px;cursor:pointer;transition:all .3s;position:relative;margin-bottom:16px}
+.dzone:hover,.dzone.over{border-color:rgba(201,133,106,.8);background:rgba(201,133,106,.06)}
+.dzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.dzone-icon{font-size:28px;display:block;margin-bottom:8px;opacity:.65}
+.dzone-txt{font-size:15px;color:#c9856a;font-style:italic}
+.dzone-txt span{display:block;font-size:11px;font-family:'Cinzel',serif;letter-spacing:.18em;color:rgba(201,133,106,.45);margin-top:5px;text-transform:uppercase}
+.photo-counter{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;color:rgba(201,133,106,.6);text-transform:uppercase;margin-bottom:10px;min-height:16px}
+#tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:5px;margin-bottom:18px;max-height:180px;overflow-y:auto;padding-right:4px}
+#tgrid::-webkit-scrollbar{width:4px}
+#tgrid::-webkit-scrollbar-track{background:transparent}
+#tgrid::-webkit-scrollbar-thumb{background:rgba(201,133,106,.3);border-radius:2px}
+.tw{position:relative;border-radius:5px;overflow:hidden;aspect-ratio:1;cursor:default}
+.tw img{width:100%;height:100%;object-fit:cover;display:block}
+.tw-rm{position:absolute;top:2px;right:2px;background:rgba(0,0,0,.75);border:none;color:#c9856a;width:16px;height:16px;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1}
+.sbtn{background:rgba(201,133,106,.14);border:1px solid rgba(201,133,106,.5);color:#f7dcc8;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.26em;text-transform:uppercase;padding:13px 38px;border-radius:4px;cursor:pointer;transition:all .3s}
+.sbtn:hover{background:rgba(201,133,106,.26);border-color:#c9856a}
+.sbtn:disabled{opacity:.32;cursor:not-allowed}
+.skipbtn{background:none;border:none;color:rgba(201,133,106,.4);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;margin-top:12px;display:block;width:100%;transition:color .3s}
+.skipbtn:hover{color:#c9856a}
+
+/* ─── PRESENTATION ───────────────────────────────────────── */
+#pres{position:fixed;inset:0;z-index:10;display:none}
+#pres.on{display:block}
+.bg-layer{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;transition:opacity 1.6s ease}
+.bg-layer::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.32) 45%,rgba(0,0,0,.72) 100%)}
+.no-photo{background:radial-gradient(ellipse at 50% 40%,#3a0a1a 0%,#1a040c 50%,#0d0408 100%)}
+.petals{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.petal{position:absolute;top:-40px;opacity:0;animation:fall linear infinite;pointer-events:none}
+@keyframes fall{0%{opacity:0;transform:translateY(0) rotate(0deg)}10%{opacity:.85}90%{opacity:.5}100%{opacity:0;transform:translateY(110vh) rotate(700deg) translateX(50px)}}
+.rf{position:fixed;inset:0;pointer-events:none;z-index:20;border:1px solid rgba(201,133,106,.14);margin:18px;border-radius:2px}
+.rc{position:absolute;font-size:20px;opacity:.38;line-height:1;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.rc.tl{top:7px;left:7px}.rc.tr{top:7px;right:7px}.rc.bl{bottom:7px;left:7px}.rc.br{bottom:7px;right:7px}
+
+/* Photo counter overlay */
+.photo-overlay{position:fixed;top:26px;left:38px;z-index:30;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.32);text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.8);pointer-events:none;transition:opacity .4s}
+
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 52px;text-align:center;opacity:0;transform:scale(.97);transition:opacity 1.1s ease,transform 1.1s ease;z-index:10;pointer-events:none;cursor:pointer}
+.slide.active{opacity:1;transform:scale(1);pointer-events:auto}
+.slide.out{opacity:0;transform:scale(1.03);transition:opacity .75s ease,transform .75s ease}
+.ornament{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.34em;color:#c9856a;text-transform:uppercase;margin-bottom:16px;text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.title-main{font-family:'Cinzel',serif;font-size:clamp(36px,7.5vw,76px);font-weight:600;color:#f7dcc8;line-height:1.1;letter-spacing:.04em;margin-bottom:10px;text-shadow:0 2px 24px rgba(0,0,0,.95),0 0 50px rgba(220,120,90,.2)}
+.title-sub{font-size:clamp(18px,3.2vw,32px);font-weight:300;font-style:italic;color:#e8b89a;letter-spacing:.08em;margin-bottom:28px;text-shadow:0 1px 14px rgba(0,0,0,.8)}
+.divider{width:110px;height:1px;background:linear-gradient(to right,transparent,#c9856a,transparent);margin:18px auto}
+.song-credit{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;color:rgba(201,133,106,.6);text-transform:uppercase;margin-bottom:4px}
+.song-name{font-family:'Cinzel',serif;font-size:clamp(11px,1.8vw,15px);letter-spacing:.26em;color:#c9856a;text-transform:uppercase;margin-bottom:24px}
+.verse-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.38em;color:#d9a090;text-transform:uppercase;margin-bottom:20px;text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.lb{max-width:700px}
+.ll{font-size:clamp(19px,3vw,31px);font-weight:300;line-height:1.78;color:#f5e6d3;opacity:0;transform:translateY(13px);transition:opacity .65s ease,transform .65s ease;text-shadow:0 2px 18px rgba(0,0,0,.95),0 0 28px rgba(0,0,0,.6)}
+.ll.show{opacity:1;transform:translateY(0)}
+.cl{font-size:clamp(21px,3.4vw,35px);font-weight:400;font-style:italic;color:#fce8d0;line-height:1.78;opacity:0;transform:translateY(13px);transition:opacity .65s ease,transform .65s ease;text-shadow:0 2px 18px rgba(0,0,0,.95),0 0 28px rgba(0,0,0,.6)}
+.cl.show{opacity:1;transform:translateY(0)}
+.fn{font-family:'Cinzel',serif;font-size:clamp(30px,5.5vw,62px);font-weight:600;color:#f7dcc8;letter-spacing:.06em;text-shadow:0 2px 28px rgba(0,0,0,.95),0 0 55px rgba(220,120,90,.3);margin-bottom:8px}
+.fm{font-size:clamp(17px,2.6vw,27px);font-style:italic;font-weight:300;color:#f0d8c4;line-height:1.72;max-width:480px;margin:0 auto;text-shadow:0 2px 18px rgba(0,0,0,.9)}
+.hb{font-size:clamp(46px,7.5vw,86px);margin-bottom:18px;animation:pulse 2.5s ease-in-out infinite;display:block}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+
+/* Controls */
+.progress{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:25}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(201,133,106,.3);transition:background .4s,transform .4s}
+.dot.active{background:#c9856a;transform:scale(1.4)}
+.taphint{position:fixed;bottom:56px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.28em;color:rgba(255,255,255,.35);text-transform:uppercase;animation:blink 3s ease-in-out infinite;z-index:25;text-shadow:0 1px 6px rgba(0,0,0,.8);white-space:nowrap}
+@keyframes blink{0%,100%{opacity:.5}50%{opacity:.12}}
+
+/* Music btn */
+#mbtn{position:fixed;top:28px;right:36px;z-index:30;background:rgba(0,0,0,.38);border:1px solid rgba(201,133,106,.4);color:#c9856a;font-size:21px;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-family:serif;pointer-events:auto}
+#mbtn:hover{background:rgba(201,133,106,.2);transform:scale(1.1)}
+#mbtn.on{animation:mglow 2s ease-in-out infinite}
+@keyframes mglow{0%,100%{box-shadow:0 0 0 0 rgba(201,133,106,.55)}50%{box-shadow:0 0 0 9px rgba(201,133,106,0)}}
+.viz{position:fixed;bottom:10px;right:36px;display:flex;align-items:flex-end;gap:2px;height:18px;z-index:30;opacity:0;transition:opacity .5s}
+.viz.show{opacity:.5}
+.vb{width:3px;background:#c9856a;border-radius:2px;animation:vba ease-in-out infinite alternate}
+@keyframes vba{0%{height:3px}100%{height:18px}}
+.mlbl{position:fixed;top:32px;right:90px;z-index:30;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;color:rgba(201,133,106,.5);text-transform:uppercase;pointer-events:none;text-shadow:0 1px 6px rgba(0,0,0,.8);transition:opacity .5s}
+
+/* Add more photos button */
+#add-more{position:fixed;top:28px;left:38px;z-index:30;background:rgba(0,0,0,.38);border:1px solid rgba(201,133,106,.32);color:rgba(201,133,106,.7);font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:8px 14px;border-radius:20px;cursor:pointer;transition:all .3s;pointer-events:auto;display:none}
+#add-more:hover{border-color:#c9856a;color:#c9856a;background:rgba(0,0,0,.55)}
+#add-more input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+
+/* Product builder controls */
+.builder-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.builder-card{position:relative;border:1px solid rgba(201,133,106,.3);border-radius:8px;padding:13px 10px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#d9a090;cursor:pointer;overflow:hidden}
+.builder-card input[type=file]{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.music-url{width:100%;margin-top:10px;padding:11px 12px;border-radius:6px;border:1px solid rgba(201,133,106,.35);background:rgba(255,255,255,.03);color:#f7dcc8;font-family:inherit;font-size:14px;outline:none}
+.music-url::placeholder{color:rgba(201,133,106,.45)}
+.urlbtn{margin-top:8px;width:100%;padding:10px 12px;border-radius:4px;border:1px solid rgba(201,133,106,.45);background:rgba(201,133,106,.12);color:#f7dcc8;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.exportbtn{width:100%;margin-top:10px;background:#c9856a;border:1px solid #e8b89a;color:#17060c;font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:13px 16px;border-radius:4px;cursor:pointer}
+.exportbtn:disabled{opacity:.4;cursor:wait}
+.export-status{min-height:18px;margin-top:8px;font-size:12px;font-style:italic;color:#c9856a}
+@media(max-width:600px){
+  .sbox{padding:24px 18px;max-height:94vh;overflow:auto}
+  .builder-row{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════════════ SETUP ════════════ -->
+<div id="setup">
+ <div class="sbox">
+  <div class="s-title">One Year of Forever</div>
+  <div class="s-sub">A song for Sergie Timofeev · 1st Anniversary</div>
+  <div class="s-song">♪ &nbsp; This I Promise You &nbsp; ♪</div>
+
+  <div class="dzone" id="dz">
+   <input type="file" id="fi" accept="image/*" multiple onchange="addFiles(this.files)">
+   <span class="dzone-icon">📷</span>
+   <div class="dzone-txt">Drop your photos here, or click to browse
+    <span>Up to 500 photos · JPG · PNG · WEBP · they'll cycle in the background</span>
+   </div>
+  </div>
+
+  <div class="photo-counter" id="pctr"></div>
+  <div id="tgrid"></div>
+
+  <div class="builder-row" id="builder-tools">
+   <label class="builder-card">🎵 Choose music file
+    <input type="file" id="musicFile" accept="audio/*" onchange="addMusic(this.files[0])">
+   </label>
+   <div class="builder-card" id="musicStatus">No music selected</div>
+  </div>
+  <input class="music-url" id="musicUrl" type="url" inputmode="url" value="https://youtu.be/Ay28bi10cUE?si=6Kyq00q2k8S8OtTF" placeholder="Paste a YouTube link or direct MP3/M4A link">
+  <button class="urlbtn" type="button" onclick="useMusicLink()">Use music link</button>
+  <div style="font-size:11px;color:rgba(201,133,106,.65);margin-top:7px;line-height:1.4">YouTube links work with internet. For a completely offline downloaded presentation, choose an MP3/M4A file above.</div>
+
+  <button class="sbtn" id="sbtn" onclick="startPres()">Preview Presentation</button>
+  <button class="skipbtn" onclick="startPres()">Preview without photos</button>
+  <button class="exportbtn" id="exportBtn" onclick="downloadReadyPresentation()">Download ready presentation</button>
+  <div class="export-status" id="exportStatus"></div>
+ </div>
+</div>
+
+<!-- ════════════ PRESENTATION ════════════ -->
+<div id="pres">
+ <div class="bg-layer no-photo" id="bga"></div>
+ <div class="bg-layer no-photo" id="bgb" style="opacity:0"></div>
+ <div class="petals" id="petals"></div>
+ <div class="rf"><span class="rc tl">✦</span><span class="rc tr">✦</span><span class="rc bl">✦</span><span class="rc br">✦</span></div>
+
+ <div class="photo-overlay" id="photo-overlay"></div>
+ <div class="mlbl" id="mlbl">tap ♩ for music</div>
+ <button id="mbtn" title="Play music" onclick="toggleMusic(event)">♩</button>
+ <div class="viz" id="viz">
+  <div class="vb" style="animation-duration:.62s;animation-delay:0s"></div>
+  <div class="vb" style="animation-duration:.44s;animation-delay:.11s"></div>
+  <div class="vb" style="animation-duration:.83s;animation-delay:.06s"></div>
+  <div class="vb" style="animation-duration:.54s;animation-delay:.19s"></div>
+  <div class="vb" style="animation-duration:.72s;animation-delay:.03s"></div>
+  <div class="vb" style="animation-duration:.5s;animation-delay:.15s"></div>
+ </div>
+
+ <div id="add-more" title="Add more photos">
+  📷 Add photos
+  <input type="file" accept="image/*" multiple onchange="addFiles(this.files)">
+ </div>
+
+ <!-- Slides -->
+ <div class="slide active" id="s0">
+  <div class="ornament">✦ &nbsp; A Gift of Words &nbsp; ✦</div>
+  <div class="title-main">One Year<br>of Forever</div>
+  <div class="divider"></div>
+  <div class="title-sub">A song for Sergie Timofeev</div>
+  <div class="song-credit">♪</div>
+  <div class="song-name">This I Promise You</div>
+ </div>
+
+ <div class="slide" id="s1">
+  <div class="verse-label">✦ &nbsp; Verse I &nbsp; ✦</div>
+  <div class="lb">
+   <div class="ll">A year ago today, I chose you</div>
+   <div class="ll">In every breath, in everything I do</div>
+   <div class="ll">The world was ordinary, plain and gray</div>
+   <div class="ll">Until your love came and swept me away</div>
+  </div>
+ </div>
+
+ <div class="slide" id="s2">
+  <div class="verse-label">✦ &nbsp; Chorus &nbsp; ✦</div>
+  <div class="lb">
+   <div class="cl">One year of forever starts with you</div>
+   <div class="cl">One year of waking up to something true</div>
+   <div class="cl">Every laugh, every tear, every midnight vow</div>
+   <div class="cl">One year of forever — and I'd choose you now</div>
+  </div>
+ </div>
+
+ <div class="slide" id="s3">
+  <div class="verse-label">✦ &nbsp; Verse II &nbsp; ✦</div>
+  <div class="lb">
+   <div class="ll">They say time flies when love is real</div>
+   <div class="ll">I've felt it in every touch, every meal</div>
+   <div class="ll">In quiet mornings and in moonlit nights</div>
+   <div class="ll">In your arms — I've found my favorite light</div>
+  </div>
+ </div>
+
+ <div class="slide" id="s4">
+  <div class="verse-label">✦ &nbsp; Chorus &nbsp; ✦</div>
+  <div class="lb">
+   <div class="cl">One year of forever starts with you</div>
+   <div class="cl">One year of waking up to something true</div>
+   <div class="cl">Every laugh, every tear, every midnight vow</div>
+   <div class="cl">One year of forever — and I'd choose you now</div>
+  </div>
+ </div>
+
+ <div class="slide" id="s5">
+  <div class="verse-label">✦ &nbsp; Bridge &nbsp; ✦</div>
+  <div class="lb">
+   <div class="ll">So here's to one — the first of many more</div>
+   <div class="ll">To every door we've opened, every shore</div>
+   <div class="ll">I'd do it all again, a thousand ways</div>
+   <div class="ll" style="font-style:italic;color:#fce8d0">Sergie, you are all my favorite days</div>
+  </div>
+ </div>
+
+ <div class="slide" id="s6">
+  <span class="hb">♥</span>
+  <div class="fn">Sergie</div>
+  <div class="divider"></div>
+  <div class="fm">Happy 1st Anniversary.<br>Every year with you is a gift<br>I will never stop unwrapping.</div>
+  <div style="margin-top:32px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.28em;color:#c9856a;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.8)">With all my love, forever yours</div>
+ </div>
+ <audio id="localAudio" preload="auto" loop></audio>
+ <iframe
+id="ytplayer"
+width="220"
+height="220"
+src="about:blank"
+frameborder="0"
+allow="autoplay; encrypted-media; picture-in-picture"
+allowfullscreen
+style="position:fixed;width:220px;height:220px;opacity:0.001;pointer-events:none;left:-10000px;top:-10000px;">
+</iframe>
+ </div>
+<div class="progress" id="prog"></div>
+ <div class="taphint">tap anywhere to continue &nbsp;·&nbsp; ← → to navigate</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script>
+// ══════════════════════════════════════════════════════
+//  PHOTOS  — up to 100, auto-cycling slideshow
+// ══════════════════════════════════════════════════════
+const MAX_PHOTOS = 500;
+let photos = [];          // embedded data URLs
+let embeddedMusic = '';
+let embeddedMusicName = '';
+let linkedMusic = '';
+let youtubeVideoId = '';
+let photoIdx = 0;         // which photo is showing
+let bgFront = 'a';        // 'a' or 'b'
+let photoCycleTimer = null;
+const CYCLE_MS = 4000;    // new photo every 4 seconds
+
+function readAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error || new Error('Could not read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function addFiles(files) {
+  const remaining = MAX_PHOTOS - photos.length;
+  const selected = Array.from(files).slice(0, remaining);
+  const status = document.getElementById('exportStatus');
+  status.textContent = selected.length ? 'Embedding photos…' : '';
+  try {
+    const loaded = await Promise.all(selected.map(readAsDataURL));
+    photos.push(...loaded);
+    renderThumbs();
+    status.textContent = selected.length ? `${selected.length} photo${selected.length===1?'':'s'} embedded.` : '';
+    if (document.getElementById('pres').classList.contains('on')) {
+      updatePhotoOverlay();
+      document.getElementById('add-more').style.display = 'block';
+    }
+  } catch (err) {
+    status.textContent = 'One or more photos could not be read.';
+    console.error(err);
+  }
+}
+
+async function addMusic(file) {
+  if (!file) return;
+  const status = document.getElementById('exportStatus');
+  const musicStatus = document.getElementById('musicStatus');
+  status.textContent = 'Embedding music…';
+  try {
+    embeddedMusic = await readAsDataURL(file);
+    linkedMusic = '';
+    youtubeVideoId = '';
+    embeddedMusicName = file.name || 'Embedded music';
+    document.getElementById('localAudio').src = embeddedMusic;
+    document.getElementById('ytplayer').src = 'about:blank';
+    musicStatus.textContent = '✓ ' + embeddedMusicName;
+    status.textContent = 'Music embedded successfully. It will work offline in the downloaded presentation.';
+  } catch (err) {
+    status.textContent = 'The music file could not be read.';
+    console.error(err);
+  }
+}
+
+
+function extractYouTubeId(value) {
+  try {
+    const url = new URL(value);
+    const host = url.hostname.replace(/^www\./, '').toLowerCase();
+    if (host === 'youtu.be') return url.pathname.split('/').filter(Boolean)[0] || '';
+    if (host === 'youtube.com' || host.endsWith('.youtube.com')) {
+      if (url.pathname === '/watch') return url.searchParams.get('v') || '';
+      const parts = url.pathname.split('/').filter(Boolean);
+      if (['embed','shorts','live'].includes(parts[0])) return parts[1] || '';
+    }
+  } catch (_) {}
+  return '';
+}
+
+function useMusicLink() {
+  const input = document.getElementById('musicUrl');
+  const status = document.getElementById('exportStatus');
+  const musicStatus = document.getElementById('musicStatus');
+  const value = (input.value || '').trim();
+
+  if (!value) {
+    status.textContent = 'Paste a YouTube or direct audio link first.';
+    return;
+  }
+
+  try {
+    const url = new URL(value);
+    const ytId = extractYouTubeId(url.href);
+
+    embeddedMusic = '';
+    document.getElementById('localAudio').pause();
+    document.getElementById('localAudio').removeAttribute('src');
+
+    if (ytId) {
+      youtubeVideoId = ytId;
+      linkedMusic = '';
+      embeddedMusicName = 'YouTube: ' + ytId;
+      document.getElementById('ytplayer').src = youtubeEmbedUrl(false);
+      musicStatus.textContent = '✓ YouTube music selected';
+      status.textContent = 'YouTube music saved. The downloaded presentation will play it with an internet connection.';
+    } else {
+      youtubeVideoId = '';
+      linkedMusic = url.href;
+      embeddedMusicName = linkedMusic;
+      document.getElementById('localAudio').src = linkedMusic;
+      document.getElementById('ytplayer').src = 'about:blank';
+      musicStatus.textContent = '✓ Direct music link selected';
+      status.textContent = 'Direct music link saved. The downloaded presentation will need internet access.';
+    }
+  } catch (_) {
+    status.textContent = 'That does not look like a valid link.';
+  }
+}
+
+function renderThumbs() {
+  const g = document.getElementById('tgrid');
+  const c = document.getElementById('pctr');
+  const n = photos.length;
+  c.textContent = n > 0 ? `${n} photo${n>1?'s':''} loaded${n===MAX_PHOTOS?' (maximum reached)':''}` : '';
+  g.innerHTML = '';
+  photos.forEach((url, i) => {
+    const w = document.createElement('div'); w.className = 'tw';
+    w.innerHTML = `<img src="${url}" loading="lazy"><button class="tw-rm" onclick="removePhoto(${i},event)">×</button>`;
+    g.appendChild(w);
+  });
+  document.getElementById('sbtn').disabled = false; // always allow start
+}
+
+function removePhoto(i, e) {
+  e.stopPropagation();
+  photos.splice(i, 1);
+  renderThumbs();
+}
+
+// Drag-drop
+const dz = document.getElementById('dz');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('over'); addFiles(e.dataTransfer.files); });
+
+// ── Apply a photo to the back layer and crossfade ──────
+function showPhoto(url, instant) {
+  const front = document.getElementById('bg' + bgFront);
+  const back  = document.getElementById('bg' + (bgFront === 'a' ? 'b' : 'a'));
+  if (url) {
+    back.className = 'bg-layer';
+    back.style.backgroundImage = `url(${url})`;
+  } else {
+    back.className = 'bg-layer no-photo';
+    back.style.backgroundImage = 'none';
+  }
+  if (instant) {
+    back.style.transition = 'none'; front.style.transition = 'none';
+  } else {
+    back.style.transition = 'opacity 1.6s ease'; front.style.transition = 'opacity 1.6s ease';
+  }
+  back.style.opacity = '1'; front.style.opacity = '0';
+  bgFront = bgFront === 'a' ? 'b' : 'a';
+}
+
+function nextPhoto() {
+  if (!photos.length) return;
+  photoIdx = (photoIdx + 1) % photos.length;
+  showPhoto(photos[photoIdx], false);
+  updatePhotoOverlay();
+}
+
+function startPhotoCycle() {
+  if (photoCycleTimer) clearInterval(photoCycleTimer);
+  photoCycleTimer = setInterval(nextPhoto, CYCLE_MS);
+}
+
+function updatePhotoOverlay() {
+  const ov = document.getElementById('photo-overlay');
+  if (photos.length > 1) ov.textContent = `${photoIdx + 1} / ${photos.length}`;
+  else ov.textContent = '';
+}
+
+// ══════════════════════════════════════════════════════
+//  START PRESENTATION
+// ══════════════════════════════════════════════════════
+function startPres() {
+  document.getElementById('setup').classList.add('gone');
+  const pres = document.getElementById('pres');
+  pres.style.display = 'block';
+  setTimeout(() => pres.classList.add('on'), 10);
+
+  if (photos.length) {
+    showPhoto(photos[0], true);
+    updatePhotoOverlay();
+    if (photos.length > 1) startPhotoCycle();
+  }
+
+  buildDots();
+  spawnPetals();
+  if (photos.length) document.getElementById('add-more').style.display = 'block';
+  document.body.addEventListener('click', handleClick);
+  document.body.addEventListener('keydown', handleKey);
+
+  // The Open/Preview button is a user gesture, so start the selected music here.
+  if (!musicPlaying && (embeddedMusic || linkedMusic || youtubeVideoId)) {
+    toggleMusic({stopPropagation(){}});
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  SLIDES
+// ══════════════════════════════════════════════════════
+const TOTAL = 7; let cur = 0, busy = false;
+
+function buildDots() {
+  const p = document.getElementById('prog'); p.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===0?' active':'');
+    p.appendChild(d);
+  }
+}
+function syncDots() { document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur)); }
+function revealLines(sl){ sl.querySelectorAll('.ll,.cl').forEach((l,i)=>setTimeout(()=>l.classList.add('show'),180+i*290)); }
+function hideLines(sl){ sl.querySelectorAll('.ll,.cl').forEach(l=>l.classList.remove('show')); }
+
+function goTo(n) {
+  if (busy || n===cur) return; busy=true;
+  const c = document.getElementById('s'+cur), x = document.getElementById('s'+n);
+  c.classList.add('out'); c.classList.remove('active');
+  setTimeout(()=>{ c.classList.remove('out'); hideLines(c); x.classList.add('active'); revealLines(x); cur=n; syncDots(); busy=false; }, 850);
+}
+
+function handleClick(e) {
+  if (e.target.closest('#mbtn')||e.target.closest('#add-more')) return;
+  goTo(cur < TOTAL-1 ? cur+1 : 0);
+}
+function handleKey(e) {
+  if (e.key==='ArrowRight'||e.key===' ') goTo(cur<TOTAL-1?cur+1:0);
+  if (e.key==='ArrowLeft') goTo(cur>0?cur-1:0);
+}
+
+// ══════════════════════════════════════════════════════
+//  PETALS
+// ══════════════════════════════════════════════════════
+function spawnPetals() {
+  function sp() {
+    const c=document.getElementById('petals'); if(!c) return;
+    const el=document.createElement('div'); el.className='petal';
+    el.textContent=['♥','✿','✦','❧','·'][Math.floor(Math.random()*5)];
+    el.style.cssText=`left:${Math.random()*100}vw;font-size:${12+Math.random()*13}px;color:hsl(${340+Math.random()*30},60%,${68+Math.random()*18}%);animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*3}s`;
+    c.appendChild(el); setTimeout(()=>el.remove(),18000);
+  }
+  setInterval(sp,600); for(let i=0;i<10;i++) setTimeout(sp,i*250);
+}
+
+// ══════════════════════════════════════════════════════
+//  MUSIC — Embedded YouTube Player
+// ══════════════════════════════════════════════════════
+let musicPlaying = false;
+
+function youtubeEmbedUrl(autoplay) {
+  if (!youtubeVideoId) return 'about:blank';
+  const params = new URLSearchParams({
+    autoplay: autoplay ? '1' : '0',
+    rel: '0',
+    modestbranding: '1',
+    playsinline: '1',
+    loop: '1',
+    playlist: youtubeVideoId
+  });
+  return `https://www.youtube.com/embed/${encodeURIComponent(youtubeVideoId)}?${params.toString()}`;
+}
+
+async function toggleMusic(e) {
+  if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+  const btn = document.getElementById('mbtn');
+  const viz = document.getElementById('viz');
+  const lbl = document.getElementById('mlbl');
+  const iframe = document.getElementById('ytplayer');
+  const audio = document.getElementById('localAudio');
+
+  if (!musicPlaying) {
+    try {
+      if (embeddedMusic || linkedMusic) {
+        const source = embeddedMusic || linkedMusic;
+        if (audio.src !== source) audio.src = source;
+        await audio.play();
+      } else if (youtubeVideoId) {
+        iframe.src = youtubeEmbedUrl(true);
+      } else {
+        lbl.textContent = 'no music selected';
+        lbl.style.opacity = '1';
+        return;
+      }
+
+      musicPlaying = true;
+      btn.textContent = '❚❚';
+      btn.classList.add('on');
+      viz.classList.add('show');
+      lbl.style.opacity = '0';
+    } catch (err) {
+      musicPlaying = false;
+      lbl.textContent = 'tap ♩ to allow music';
+      lbl.style.opacity = '1';
+      console.error(err);
+    }
+  } else {
+    if (embeddedMusic || linkedMusic) {
+      audio.pause();
+    }
+    if (youtubeVideoId) {
+      iframe.src = youtubeEmbedUrl(false);
+    }
+    musicPlaying = false;
+    btn.textContent = '♩';
+    btn.classList.remove('on');
+    viz.classList.remove('show');
+  }
+}
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('musicUrl');
+  if (input && input.value.trim()) useMusicLink();
+});
+
+// ══════════════════════════════════════════════════════
+//  EXPORT A FINISHED, SELF-CONTAINED PRESENTATION
+// ══════════════════════════════════════════════════════
+function safeFileName(name) {
+  return (name || 'anniversary-presentation')
+    .replace(/[^a-z0-9\-_. ]/gi, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .toLowerCase() || 'anniversary-presentation';
+}
+
+function downloadReadyPresentation() {
+  const btn = document.getElementById('exportBtn');
+  const status = document.getElementById('exportStatus');
+  btn.disabled = true;
+  status.textContent = 'Building your finished presentation…';
+
+  try {
+    const clone = document.documentElement.cloneNode(true);
+
+    // Reset the exported copy to a clean opening screen.
+    const setup = clone.querySelector('#setup');
+    setup.classList.remove('gone');
+    setup.innerHTML = `
+      <div class="sbox">
+        <div class="s-title">One Year of Forever</div>
+        <div class="s-sub">A song for Sergie Timofeev · 1st Anniversary</div>
+        <div class="s-song">♪ &nbsp; A finished presentation made with love &nbsp; ♪</div>
+        <button class="sbtn" id="sbtn" onclick="startPres()">Open Presentation</button>
+      </div>`;
+
+    const pres = clone.querySelector('#pres');
+    pres.classList.remove('on');
+    pres.style.display = 'none';
+
+    clone.querySelectorAll('.slide').forEach((slide, index) => {
+      slide.classList.remove('active', 'out');
+      if (index === 0) slide.classList.add('active');
+      slide.querySelectorAll('.ll,.cl').forEach(el => el.classList.remove('show'));
+    });
+
+    clone.querySelectorAll('.bg-layer').forEach((bg, index) => {
+      bg.className = 'bg-layer no-photo';
+      bg.style.backgroundImage = 'none';
+      bg.style.opacity = index === 0 ? '1' : '0';
+    });
+
+    const addMore = clone.querySelector('#add-more');
+    if (addMore) addMore.remove();
+
+    const toneScript = clone.querySelector('script[src*="tone"]');
+    if (toneScript) toneScript.remove();
+
+    // Serialize the selected assets directly into the downloaded HTML.
+    let source = '<!DOCTYPE html>\n' + clone.outerHTML;
+    source = source.replace(
+      "let photos = [];          // embedded data URLs",
+      "let photos = " + JSON.stringify(photos) + ";          // embedded data URLs"
+    );
+    source = source.replace(
+      "let embeddedMusic = '';",
+      "let embeddedMusic = " + JSON.stringify(embeddedMusic) + ";"
+    );
+    source = source.replace(
+      "let embeddedMusicName = '';",
+      "let embeddedMusicName = " + JSON.stringify(embeddedMusicName) + ";"
+    );
+    source = source.replace(
+      "let linkedMusic = '';",
+      "let linkedMusic = " + JSON.stringify(linkedMusic) + ";"
+    );
+    source = source.replace(
+      "let youtubeVideoId = '';",
+      "let youtubeVideoId = " + JSON.stringify(youtubeVideoId) + ";"
+    );
+
+    // Finished copies should initialize the embedded audio immediately.
+    source = source.replace(
+      "const MAX_PHOTOS = 500;",
+      "const MAX_PHOTOS = 500;\nwindow.addEventListener('DOMContentLoaded',()=>{const a=document.getElementById('localAudio');const y=document.getElementById('ytplayer');if(a&&(embeddedMusic||linkedMusic))a.src=embeddedMusic||linkedMusic;if(y&&youtubeVideoId)y.src=youtubeEmbedUrl(false);});"
+    );
+
+    const blob = new Blob([source], {type: 'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = safeFileName(document.title) + '.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+
+    status.textContent = embeddedMusic ? `Ready: ${photos.length} photo${photos.length===1?'':'s'} and the music file are embedded for offline use.` : (youtubeVideoId || linkedMusic) ? `Ready: ${photos.length} photo${photos.length===1?'':'s'} are embedded. Music will play when internet is available.` : `Ready: ${photos.length} photo${photos.length===1?'':'s'} are embedded.`;
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'The finished file could not be created. Try fewer or smaller photos.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+</script>
+</body>
+</html>
